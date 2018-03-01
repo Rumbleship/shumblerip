@@ -1,6 +1,6 @@
 # shumblerip
 
-> Rumbleship's user password strength utility for coincident client- and server-side use
+> [Rumbleship's](https://rumbleship.com) user password strength utility for coincident client- and server-side use
 
 ## Installation
 
@@ -83,19 +83,19 @@ true
 
 ### Server
 
-* Expose `config` via an endpoint (e.g. `GET` `/users/password-requirements`)
+* Expose `config` and specification (`shumblerip@0.1.0`) via an endpoint (e.g. `GET` `/users/password-requirements`)
 * Implement logic to conditionally allow password change requests (to e.g. `PUT` `/users/{id}/password`) when `Shumblerip.check(password).passes`
-* Be sure the client will have access to `user` properties you use
+* Be sure the client will have access to all `user` properties referenced
 
 ### Client
 
 * Instantiate with `config` retrieved from server (and `user` details as necessary to mirror its instance)
 * Invoke `Shumblerip.check(password)` (debounced) for user input, allowing submission when `Shumblerip.check(password).passes`
-* Beware of the pitfalls specified in [the `zxcvbn` README](https://github.com/dropbox/zxcvbn/blob/master/README.md)
+* Beware of pitfalls specified in [the `zxcvbn` README](https://github.com/dropbox/zxcvbn/blob/master/README.md)
 
 ## Transpiling
 
-Currently built for the running version of `node` (developed on `v6.10.0`). To transpile it for another environment, modify`babel.presets`in`package.json`(refer to [Babel's documentation](https://babeljs.io/docs/plugins/preset-env/)) and run [`yarn build`](https://yarnpkg.com/lang/en/docs/package-json/#toc-scripts)
+Currently built for the running version of `node` (developed on `v6.10.0`). To transpile for another environment, modify `babel.presets` in`package.json` (refer to [Babel's documentation](https://babeljs.io/docs/plugins/preset-env/)) and run [`yarn build`](https://yarnpkg.com/lang/en/docs/package-json/#toc-scripts)
 
 ## TODO
 
