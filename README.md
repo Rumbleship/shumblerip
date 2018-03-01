@@ -38,17 +38,8 @@ $ node
 Shumblerip {
   arguments: {
     password: 'ShumbleripZxcvbn',
-    user: {
-      first: 'Adam',
-      last: 'Hemphill',
-      email: 'adam@rumbleship.com',
-      dictionary: [Object]
-    },
-    config: {
-      dictionary: [Object],
-      passing: 2,
-      specification: 'shumblerip@0.1.0'
-    }
+    user: { first: 'Adam', last: 'Hemphill', email: 'adam@rumbleship.com' },
+    config: { dictionary: [Object], passing: 2 }
   },
   config: {
     dictionary: [

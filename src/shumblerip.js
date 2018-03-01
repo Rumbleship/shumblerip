@@ -23,7 +23,7 @@ class Shumblerip {
     }
 
     this.arguments = arguments[0];
-    this.config = this.arguments.config;
+    this.config = Object.assign({}, this.arguments.config);
     this.config.specification = `${name}@${version}`;
 
     if (password && user) {
@@ -38,13 +38,11 @@ class Shumblerip {
         );
       }
       const { first, last, email } = user;
-      user.dictionary = [
+      const userDictionary = [
         ...new Set([first, last, ...this.parseEmail(email)])
       ].filter(x => x);
 
-      this.dictionary = [
-        ...new Set([...user.dictionary, ...config.dictionary])
-      ];
+      this.dictionary = [...new Set([...userDictionary, ...config.dictionary])];
 
       this.check(password);
     }
