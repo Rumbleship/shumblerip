@@ -16,32 +16,52 @@ $ node
 [Function: Shumblerip]
 > const strength = new Shumblerip({
     // Not required for instantiation; settable afterward via this.check(password)
-    password: 'RumbleshipNbvcxz',
+    password: 'ShumbleripZxcvbn',
     // Not required but must be an object whose values are strings or null.
     // Not intended to be set after instantiation.
     user: { first: 'Adam', last: 'Hemphill', email: 'adam@rumbleship.com' },
     // Required for instantiation
     config: {
-      dictionary: ['rumbleship', 'rumble', 'ship', 'nbvcxz', 'zxcvbn'], // Must be strings
-      passing: 2 // Number 0-4 or function which takes `result` as its only argument
+      // Must be strings
+      dictionary: [
+        'rumbleship',
+        'rumble',
+        'ship',
+        'shumblerip',
+        'shumble',
+        'rip'
+      ],
+      // Number 0-4 or function which takes `result` as its only argument
+      passing: 2
     }
   });
 Shumblerip {
   arguments: {
-    password: 'RumbleshipNbvcxz',
+    password: 'ShumbleripZxcvbn',
     user: {
       first: 'Adam',
       last: 'Hemphill',
       email: 'adam@rumbleship.com',
       dictionary: [Object]
     },
-    config: { dictionary: [Object], passing: 2 }
+    config: {
+      dictionary: [Object],
+      passing: 2,
+      specification: 'shumblerip@0.1.0'
+    }
   },
   config: {
-    dictionary: ['rumbleship', 'rumble', 'ship', 'nbvcxz', 'zxcvbn'],
-    passing: 2
+    dictionary: [
+      'rumbleship',
+      'rumble',
+      'ship',
+      'shumblerip',
+      'shumble',
+      'rip'
+    ],
+    passing: 2,
+    specification: 'shumblerip@0.1.0'
   },
-  version: '0.1.0',
   dictionary: [
     'Adam',
     'Hemphill',
@@ -50,24 +70,25 @@ Shumblerip {
     'rumbleship',
     'rumble',
     'ship',
-    'nbvcxz',
-    'zxcvbn'
+    'shumblerip',
+    'shumble',
+    'rip'
   ],
   result: {
-    password: 'RumbleshipNbvcxz',
-    guesses: 15000,
-    guesses_log10: 4.176091259055681,
+    password: 'ShumbleripZxcvbn',
+    guesses: 21400,
+    guesses_log10: 4.33041377334919,
     sequence: [[Object], [Object]],
     calc_time: 3,
     crack_times_seconds: {
-      online_throttling_100_per_hour: 540000,
-      online_no_throttling_10_per_second: 1500,
-      offline_slow_hashing_1e4_per_second: 1.5,
-      offline_fast_hashing_1e10_per_second: 0.0000015
+      online_throttling_100_per_hour: 770400,
+      online_no_throttling_10_per_second: 2140,
+      offline_slow_hashing_1e4_per_second: 2.14,
+      offline_fast_hashing_1e10_per_second: 0.00000214
     },
     crack_times_display: {
-      online_throttling_100_per_hour: '6 days',
-      online_no_throttling_10_per_second: '25 minutes',
+      online_throttling_100_per_hour: '9 days',
+      online_no_throttling_10_per_second: '36 minutes',
       offline_slow_hashing_1e4_per_second: '2 seconds',
       offline_fast_hashing_1e10_per_second: 'less than a second'
     },
@@ -83,7 +104,7 @@ true
 
 ### Server
 
-* Expose `config` and specification (`shumblerip@0.1.0`) via an endpoint (e.g. `GET` `/users/password-requirements`)
+* Expose `config` via an endpoint (e.g. `GET` `/users/password-requirements`)
 * Implement logic to conditionally allow password change requests (to e.g. `PUT` `/users/{id}/password`) when `Shumblerip.check(password).passes`
 * Be sure the client will have access to all `user` properties referenced
 
@@ -101,7 +122,6 @@ Currently built for the running version of `node` (developed on `v6.10.0`). To t
 
 * Enhance `parseEmail()` function
 * Tests
-* Remove references to previous package name in `README.md`
 
 ## Acknowledgements
 

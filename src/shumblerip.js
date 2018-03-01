@@ -1,6 +1,6 @@
 // https://github.com/dropbox/zxcvbn
 import zxcvbn from 'zxcvbn';
-import { version } from './../package.json';
+import { name, version } from './../package.json';
 
 class Shumblerip {
   constructor({ password, user, config } = {}) {
@@ -24,7 +24,7 @@ class Shumblerip {
 
     this.arguments = arguments[0];
     this.config = this.arguments.config;
-    this.version = version;
+    this.config.specification = `${name}@${version}`;
 
     if (password && user) {
       if (
