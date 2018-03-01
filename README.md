@@ -112,6 +112,7 @@ Currently built for the running version of `node` (developed on `v6.10.0`). To t
 ## TODO
 
 * Enhance `parseEmail()` function
+* Make `user` settable
 * Tests
 
 ## Acknowledgements
