@@ -46,6 +46,11 @@ class Shumblerip {
 
       this.check(password);
     }
+    Object.freeze(this.config);
+    Object.defineProperty(this, 'config', {
+      configurable: false,
+      writable: false
+    });
     return this;
   }
 
