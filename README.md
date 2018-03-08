@@ -15,10 +15,10 @@ $ node
 > import Shumblerip from 'shumblerip';
 [Function: Shumblerip]
 > const strength = new Shumblerip({
-    // Not required for instantiation; settable afterward via this.check(password)
+    // Not required for instantiation; settable afterward via this.check(password[, user])
     password: 'ShumbleripZxcvbn',
-    // Not required but must be an object whose values are strings or null.
-    // Not intended to be set after instantiation.
+    // Not required for instantiation; settable afterward via this.check(password, user)
+    // Must be an object whose values are strings or null.
     user: { first: 'Adam', last: 'Hemphill', email: 'adam@rumbleship.com' },
     // Required for instantiation
     config: {
@@ -54,9 +54,8 @@ Shumblerip {
     specification: 'shumblerip@0.1.0'
   },
   dictionary: [
-    'Adam',
-    'Hemphill',
     'adam',
+    'hemphill',
     'rumbleship.com',
     'rumbleship',
     'rumble',
@@ -70,7 +69,7 @@ Shumblerip {
     guesses: 21400,
     guesses_log10: 4.33041377334919,
     sequence: [[Object], [Object]],
-    calc_time: 3,
+    calc_time: 9,
     crack_times_seconds: {
       online_throttling_100_per_hour: 770400,
       online_no_throttling_10_per_second: 2140,
@@ -96,23 +95,23 @@ true
 ### Server
 
 * Expose `config` via an endpoint (e.g. `GET` `/users/password-requirements`)
-* Implement logic to conditionally allow password change requests (to e.g. `PUT` `/users/{id}/password`) when `Shumblerip.check(password).passes`
+* Implement logic to conditionally allow password change requests (to e.g. `PUT` `/users/{id}/password`) when `Shumblerip.check(password[, user]).passes`
 * Be sure the client will have access to all `user` properties referenced
 
 ### Client
 
-* Instantiate with `config` retrieved from server (and `user` details as necessary to mirror its instance)
-* Invoke `Shumblerip.check(password)` (debounced) for user input, allowing submission when `Shumblerip.check(password).passes`
+* Instantiate with `config` retrieved from server
+* Invoke `Shumblerip.check(password[, user])` (debounced) for user input, allowing submission when `Shumblerip.check(password[, user]).passes`
 * Beware of pitfalls specified in [the `zxcvbn` README](https://github.com/dropbox/zxcvbn/blob/master/README.md)
 
 ## Transpiling
 
-Currently built for the running version of `node` (developed on `v6.10.0`). To transpile for another environment, modify `babel.presets` in`package.json` (refer to [Babel's documentation](https://babeljs.io/docs/plugins/preset-env/)) and run [`yarn build`](https://yarnpkg.com/lang/en/docs/package-json/#toc-scripts)
+Currently built for the running version of `node` (developed on `v6.10.0`). To transpile for another environment, modify `babel.presets` in `package.json` (refer to [Babel's documentation](https://babeljs.io/docs/plugins/preset-env/)) and run [`yarn build`](https://yarnpkg.com/lang/en/docs/package-json/#toc-scripts)
 
 ## TODO
 
 * Enhance `parseEmail()` function
-* Make `user` settable
+* ~~Make `user` settable~~
 * Tests
 
 ## Acknowledgements

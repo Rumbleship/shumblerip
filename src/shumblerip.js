@@ -26,25 +26,8 @@ class Shumblerip {
     this.config = Object.assign({}, this.arguments.config);
     this.config.specification = `${name}@${version}`;
 
-    if (password && user) {
-      if (
-        typeof user !== 'object' ||
-        !Object.keys(user).every(
-          key => typeof user[key] === 'string' || user[key] === null
-        )
-      ) {
-        throw new Error(
-          '`user` must be an object with properties including `email` whose values are strings or null'
-        );
-      }
-      const { first, last, email } = user;
-      const userDictionary = [
-        ...new Set([first, last, ...this.parseEmail(email)])
-      ].filter(x => x);
-
-      this.dictionary = [...new Set([...userDictionary, ...config.dictionary])];
-
-      this.check(password);
+    if (password) {
+      this.check(password, user);
     }
     Object.freeze(this.config);
     Object.defineProperty(this, 'config', {
@@ -54,14 +37,48 @@ class Shumblerip {
     return this;
   }
 
-  parseEmail(email) {
+  _addUser(user) {
+    if (!user) {
+      delete this.arguments.user;
+      this.dictionary = this.config.dictionary;
+      return;
+    }
+    if (
+      typeof user !== 'object' ||
+      !Object.keys(user).every(
+        key => typeof user[key] === 'string' || user[key] === null
+      )
+    ) {
+      throw new Error(
+        '`user` must be an object with properties including `email` whose values are strings or null'
+      );
+    }
+    this.arguments.user = user;
+    const { first, last, email } = user;
+    const userDictionary = [
+      ...new Set([first, last, ...this._parseEmail(email)])
+    ].filter(x => x);
+
+    this.dictionary = [
+      ...new Set(
+        [...userDictionary, ...this.config.dictionary].map(val =>
+          val.toLowerCase()
+        )
+      )
+    ];
+  }
+
+  _parseEmail(email) {
     if (!email || !email.includes('@') || !email.includes('.')) {
       throw new Error('`email` must include "@" and "." characters');
     }
     return email.split('@');
   }
 
-  check(password) {
+  // Interface
+
+  check(password, user) {
+    this._addUser(user);
     if (typeof password !== 'string') {
       throw new Error('`password` must be a string');
     }
