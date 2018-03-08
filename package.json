@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "description":
     "Rumbleship's user password strength utility for coincident client- and server-side use",
-  "main": "dist/shumblerip.js",
+  "main": "dist/server/shumblerip.js",
   "author": "Adam Hemphill <adam@rumbleship.com> (https://rumbleship.com)",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "build": "babel src -d dist",
+    "transpile": "BABEL_ENV='server' babel src -d dist/server",
+    "compile":
+      "BABEL_ENV='client' babel src -d dist/client && browserify dist/client/shumblerip.js -o dist/client/shumblerip.js",
+    "build": "yarn transpile && yarn compile",
     "install": "yarn build",
     "shumblerip": "echo A-what?"
   },
@@ -19,6 +22,7 @@
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "browserify": "^16.1.1",
     "prettier": "^1.10.2",
     "yarn": "^1.5.0"
   },
@@ -30,7 +34,7 @@
           "targets": {
             "node": "current"
           },
-          "debug": true
+          "debug": false
         }
       ]
     ]

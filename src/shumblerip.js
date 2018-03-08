@@ -1,6 +1,6 @@
 // https://github.com/dropbox/zxcvbn
 import zxcvbn from 'zxcvbn';
-import { name, version } from './../package.json';
+import { name, version } from './../../package.json';
 
 class Shumblerip {
   constructor({ password, user, config } = {}) {
